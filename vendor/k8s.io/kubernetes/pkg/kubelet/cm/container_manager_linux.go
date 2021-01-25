@@ -468,10 +468,7 @@ func (cm *containerManagerImpl) setupNode(activePods ActivePodsFunc) error {
 	if !f.cpuHardcapping {
 		cm.status.SoftRequirements = fmt.Errorf("CPU hardcapping unsupported")
 	}
-	b := KernelTunableModify
-	if cm.GetNodeConfig().ProtectKernelDefaults {
-		b = KernelTunableError
-	}
+	b := KernelTunableWarn
 	if err := setupKernelTunables(b); err != nil {
 		return err
 	}
